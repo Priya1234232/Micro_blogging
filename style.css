@@ -19,18 +19,54 @@ h1 {
     color: #2563eb;
 }
 
-form, .post {
+.profile, form, .post {
     background: white;
     padding: 20px;
-    border-radius: 10px;
+    border-radius: 12px;
     margin-bottom: 20px;
     box-shadow: 0 2px 8px #ccc;
 }
 
-label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
+.profile {
+    text-align: center;
+}
+
+.avatar {
+    font-size: 50px;
+}
+
+.profile p {
+    color: #666;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin: 20px 0;
+}
+
+.stats div {
+    display: flex;
+    flex-direction: column;
+}
+
+.stats span {
+    color: #777;
+    margin-top: 5px;
+}
+
+#followBtn {
+    background: #2563eb;
+    color: white;
+    border: 0;
+    padding: 10px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#followBtn.following {
+    background: #64748b;
 }
 
 textarea {
@@ -91,5 +127,9 @@ button {
 @media (max-width: 500px) {
     .container {
         width: 95%;
+    }
+
+    .stats {
+        gap: 25px;
     }
 }
