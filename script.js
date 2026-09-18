@@ -1,102 +1,90 @@
-let posts = [];
-let isFollowing = false;
-let followers = 120;
-let following = 50;
+</div>
 
-const text = document.getElementById("text");
-const count = document.getElementById("count");
+            <button 
+                class="followBtn"
+                onclick="followUser(this)">
+                Follow
+            </button>
 
-text.addEventListener("input", function () {
-    count.textContent = text.value.length + " / 200";
-});
+        </div>
 
-function addPost() {
-    let content = text.value.trim();
+    `;
 
-    if (content === "") {
-        alert("Please write a post!");
-        return;
-    }
 
-    posts.unshift({
-        text: content,
-        likes: 0,
-        date: new Date().toLocaleString()
-    });
+    // Display posts
 
-    text.value = "";
-    count.textContent = "0 / 200";
+    const postList =
+        document.getElementById("postList");
 
-    displayPosts();
-}
+    postList.innerHTML = "";
 
-function displayPosts() {
-    let search = document.getElementById("search").value.toLowerCase();
+    user.posts.forEach((post, index) => {
 
-    let result = posts.filter(function(post) {
-        return post.text.toLowerCase().includes(search);
-    });
+        postList.innerHTML += `
 
-    let output = "";
-
-    result.forEach(function(post) {
-        let index = posts.indexOf(post);
-
-        output += `
             <div class="post">
-                <h3>👩‍💻 Priya R</h3>
-                <p>${post.text}</p>
-                <small>${post.date}</small>
 
-                <div class="actions">
-                    <button class="like" onclick="likePost(${index})">
-                        ❤️ ${post.likes} Likes
-                    </button>
+                <h3>${user.name}</h3>
 
-                    <button class="delete" onclick="deletePost(${index})">
-                        🗑️ Delete
-                    </button>
-                </div>
+                <p>${post}</p>
+
+                <button 
+                    class="likeBtn"
+                    onclick="likePost(this)">
+                    ♡ Like
+                </button>
+
             </div>
+
         `;
     });
-
-    document.getElementById("posts").innerHTML =
-        output || "<p>No posts found.</p>";
-
-    document.getElementById("postCount").textContent =
-        posts.length;
 }
 
-function likePost(index) {
-    posts[index].likes++;
-    displayPosts();
-}
 
-function deletePost(index) {
-    if (confirm("Delete this post?")) {
-        posts.splice(index, 1);
-        displayPosts();
-    }
-}
+// Follow button
 
-function followUser() {
-    let button = document.getElementById("followBtn");
+function followUser(button) {
 
-    if (isFollowing) {
-        isFollowing = false;
-        followers--;
-        button.textContent = "Follow";
-        button.classList.remove("following");
+    if (button.innerText === "Follow") {
+
+        button.innerText = "Following";
+        button.style.background = "#1d9bf0";
+
     } else {
-        isFollowing = true;
-        followers++;
-        button.textContent = "Following";
-        button.classList.add("following");
-    }
 
-    document.getElementById("followers").textContent = followers;
-    document.getElementById("following").textContent = following;
+        button.innerText = "Follow";
+        button.style.background = "#222";
+
+    }
 }
 
-displayPosts();
+
+// Like button
+
+function likePost(button) {
+
+    if (button.innerText === "♡ Like") {
+
+        button.innerText = "♥ Liked";
+
+    } else {
+
+        button.innerText = "♡ Like";
+
+    }
+}
+
+
+// Go back to Home
+
+function goHome() {
+
+    document.getElementById("profilePage").style.display = "none";
+
+    document.getElementById("homePage").style.display = "block";
+}
+
+
+// Start website
+
+displayUsers();
