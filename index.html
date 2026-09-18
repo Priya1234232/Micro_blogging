@@ -3,47 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MiniBlog</title>
+    <title>MicroBlog</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header>
-        <h1>MiniBlog</h1>
-        <p>Simple Micro Blogging App</p>
-    </header>
+<header>
+    <h1>MicroBlog</h1>
 
-    <main>
+    <nav>
+        <button onclick="showHome()">Home</button>
+        <button onclick="showProfile('priya')">My Profile</button>
+    </nav>
+</header>
 
-        <!-- Home Page -->
-        <section id="homePage">
+<main>
 
-            <h2>People to Follow</h2>
+    <!-- HOME PAGE -->
+    <section id="homePage">
 
-            <div id="userList"></div>
+        <div class="create-post">
+            <h2>Create Post</h2>
 
-        </section>
+            <textarea id="postText"
+                placeholder="What's happening?"></textarea>
+
+            <button onclick="createPost()">Post</button>
+        </div>
+
+        <h2>People</h2>
+
+        <div id="usersList" class="users"></div>
+
+        <h2>Recent Posts</h2>
+
+        <div id="postsList"></div>
+
+    </section>
 
 
-        <!-- Profile Page -->
-        <section id="profilePage">
+    <!-- PROFILE PAGE -->
+    <section id="profilePage" class="hidden">
 
-            <button onclick="goHome()" class="backBtn">
-                ← Back
-            </button>
+        <button class="back" onclick="showHome()">← Back</button>
 
-            <div id="profileDetails"></div>
+        <div class="profile-card">
 
-            <h2>Posts</h2>
+            <div class="avatar" id="profileAvatar"></div>
 
-            <div id="postList"></div>
+            <h2 id="profileName"></h2>
+            <p id="profileUsername"></p>
 
-        </section>
+            <p id="profileBio"></p>
 
-    </main>
+            <div class="stats">
 
-    <script src="script.js"></script>
+                <div>
+                    <b id="profilePosts">0</b>
+                    <span>Posts</span>
+                </div>
+
+                <div>
+                    <b id="profileFollowers">0</b>
+                    <span>Followers</span>
+                </div>
+
+                <div>
+                    <b id="profileFollowing">0</b>
+                    <span>Following</span>
+                </div>
+
+            </div>
+
+            <button id="followButton"></button>
+
+        </div>
+
+
+        <div class="profile-content">
+
+            <div>
+                <h2>Posts</h2>
+                <div id="profilePostsList"></div>
+            </div>
+
+            <div>
+                <h2>Followers</h2>
+                <div id="followersList"></div>
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+<script src="script.js"></script>
 
 </body>
 </html>
