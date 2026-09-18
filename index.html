@@ -1,59 +1,49 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Micro Blog</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniBlog</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="container">
+    <header>
+        <h1>MiniBlog</h1>
+        <p>Simple Micro Blogging App</p>
+    </header>
 
-    <h1>📝 Micro Blog</h1>
+    <main>
 
-    <div class="profile">
-        <div class="avatar">👩‍💻</div>
-        <h2>Priya R</h2>
-        <p>Web Developer | Blogger</p>
+        <!-- Home Page -->
+        <section id="homePage">
 
-        <div class="stats">
-            <div>
-                <b id="postCount">0</b>
-                <span>Posts</span>
-            </div>
+            <h2>People to Follow</h2>
 
-            <div>
-                <b id="followers">120</b>
-                <span>Followers</span>
-            </div>
+            <div id="userList"></div>
 
-            <div>
-                <b id="following">50</b>
-                <span>Following</span>
-            </div>
-        </div>
+        </section>
 
-        <button id="followBtn" onclick="followUser()">Follow</button>
-    </div>
 
-    <form onsubmit="addPost(); return false;">
-        <textarea id="text" maxlength="200"
-            placeholder="What's on your mind?" required></textarea>
+        <!-- Profile Page -->
+        <section id="profilePage">
 
-        <div class="bottom">
-            <span id="count">0 / 200</span>
-            <button type="submit">Post</button>
-        </div>
-    </form>
+            <button onclick="goHome()" class="backBtn">
+                ← Back
+            </button>
 
-    <input type="text" id="search"
-        placeholder="Search posts..." oninput="displayPosts()">
+            <div id="profileDetails"></div>
 
-    <h2>Recent Posts</h2>
+            <h2>Posts</h2>
 
-    <div id="posts"></div>
+            <div id="postList"></div>
 
-</div>
+        </section>
 
-<script src="script.js"></script>
+    </main>
+
+    <script src="script.js"></script>
+
 </body>
 </html>
