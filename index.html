@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Micro Blog</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>📝 Micro Blog</h1>
+
+    <form onsubmit="addPost(); return false;">
+        <label for="text">What's on your mind?</label>
+        <textarea id="text" name="text" placeholder="What's on your mind?" required></textarea>
+
+        <div class="bottom">
+            <span id="count">0 / 200</span>
+            <button type="submit">Post</button>
+        </div>
+    </form>
+
+    <input type="text" id="search" placeholder="Search posts..." oninput="displayPosts()">
+
+    <h2>Recent Posts</h2>
+    <div id="posts"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
