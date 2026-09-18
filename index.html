@@ -7,11 +7,37 @@
 <body>
 
 <div class="container">
+
     <h1>📝 Micro Blog</h1>
 
+    <div class="profile">
+        <div class="avatar">👩‍💻</div>
+        <h2>Priya R</h2>
+        <p>Web Developer | Blogger</p>
+
+        <div class="stats">
+            <div>
+                <b id="postCount">0</b>
+                <span>Posts</span>
+            </div>
+
+            <div>
+                <b id="followers">120</b>
+                <span>Followers</span>
+            </div>
+
+            <div>
+                <b id="following">50</b>
+                <span>Following</span>
+            </div>
+        </div>
+
+        <button id="followBtn" onclick="followUser()">Follow</button>
+    </div>
+
     <form onsubmit="addPost(); return false;">
-        <label for="text">What's on your mind?</label>
-        <textarea id="text" name="text" placeholder="What's on your mind?" required></textarea>
+        <textarea id="text" maxlength="200"
+            placeholder="What's on your mind?" required></textarea>
 
         <div class="bottom">
             <span id="count">0 / 200</span>
@@ -19,10 +45,13 @@
         </div>
     </form>
 
-    <input type="text" id="search" placeholder="Search posts..." oninput="displayPosts()">
+    <input type="text" id="search"
+        placeholder="Search posts..." oninput="displayPosts()">
 
     <h2>Recent Posts</h2>
+
     <div id="posts"></div>
+
 </div>
 
 <script src="script.js"></script>
