@@ -3,47 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MiniBlog</title>
+    <title>Mini Twitter</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
 
-    <header>
-        <h1>MiniBlog</h1>
-        <p>Simple Micro Blogging App</p>
-    </header>
+<header class="header">
+    <div class="logo">
+        <i class="fa-brands fa-twitter"></i>
+        <span>Mini Twitter</span>
+    </div>
 
-    <main>
+    <nav class="navbar">
+        <a href="#" onclick="showHome()">Home</a>
+        <a href="#" onclick="showProfile()">Profile</a>
+        <a href="#" onclick="showUser()">Monika</a>
+        <button onclick="logout()">Logout</button>
+    </nav>
+</header>
 
-        <!-- Home Page -->
-        <section id="homePage">
+<main class="container">
 
-            <h2>People to Follow</h2>
+    <section class="left-section">
 
-            <div id="userList"></div>
+        <div class="card create-post">
+            <h2>Create a post</h2>
 
-        </section>
+            <textarea
+                id="postText"
+                placeholder="What's on your mind?"
+            ></textarea>
 
+            <button class="post-btn" onclick="createPost()">
+                Post
+            </button>
+        </div>
 
-        <!-- Profile Page -->
-        <section id="profilePage">
+        <div class="card">
+            <h2>Posts</h2>
+            <div id="postsContainer"></div>
+        </div>
 
-            <button onclick="goHome()" class="backBtn">
-                ← Back
+    </section>
+
+    <aside class="right-section">
+
+        <div class="card profile-card">
+
+            <h2>Your Profile</h2>
+
+            <div class="profile-info">
+                <div class="profile-avatar">
+                    M
+                </div>
+
+                <div>
+                    <h3>Monika</h3>
+                    <p>IT student</p>
+                </div>
+            </div>
+
+            <div class="profile-stats">
+                <div>
+                    <strong>20</strong>
+                    <span>Posts</span>
+                </div>
+
+                <div>
+                    <strong>30</strong>
+                    <span>Following</span>
+                </div>
+
+                <div>
+                    <strong>80</strong>
+                    <span>Followers</span>
+                </div>
+            </div>
+
+            <button class="profile-btn" onclick="showProfile()">
+                Open Profile
             </button>
 
-            <div id="profileDetails"></div>
+        </div>
 
-            <h2>Posts</h2>
+        <div class="card suggested">
 
-            <div id="postList"></div>
+            <h2>Suggested Users</h2>
 
-        </section>
+            <div class="user">
 
-    </main>
+                <div class="user-left">
+                    <div class="avatar blue">
+                        R
+                    </div>
 
-    <script src="script.js"></script>
+                    <div>
+                        <h3>Rahul</h3>
+                        <p>AI Enthusiast</p>
+                    </div>
+                </div>
+
+                <button class="follow-btn" onclick="followUser(this)">
+                    Follow
+                </button>
+
+            </div>
+
+            <div class="user">
+
+                <div class="user-left">
+                    <div class="avatar pink">
+                        P
+                    </div>
+
+                    <div>
+                        <h3>Priya</h3>
+                        <p>Web Developer</p>
+                    </div>
+                </div>
+
+                <button class="follow-btn" onclick="followUser(this)">
+                    Follow
+                </button>
+
+            </div>
+
+            <div class="user">
+
+                <div class="user-left">
+                    <div class="avatar green">
+                        A
+                    </div>
+
+                    <div>
+                        <h3>Arun</h3>
+                        <p>Java Developer</p>
+                    </div>
+                </div>
+
+                <button class="follow-btn" onclick="followUser(this)">
+                    Follow
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="twitter-message">
+            <i class="fa-brands fa-twitter"></i>
+            <h3>Share your thoughts</h3>
+            <p>Connect with the world!</p>
+        </div>
+
+    </aside>
+
+</main>
+
+<footer>
+    <p>© 2026 Mini Twitter. All rights reserved.</p>
+
+    <div>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+    </div>
+</footer>
+
+<script src="script.js"></script>
 
 </body>
 </html>
