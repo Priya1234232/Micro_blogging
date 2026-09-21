@@ -1,232 +1,255 @@
-// Users data
-
-const users = [
+let defaultPosts = [
     {
         id: 1,
-        name: "Monika",
-        username: "@monika",
-        bio: "Web developer | Technology lover",
-        followers: 120,
-        following: 80,
-        posts: [
-            "Learning JavaScript today!",
-            "Building my first micro blogging website.",
-            "I love web development ❤️"
-        ]
+        name: "Rahul",
+        role: "AI Enthusiast",
+        avatar: "R",
+        avatarClass: "blue",
+        text: "Learning JavaScript today!",
+        time: "2 minutes ago",
+        likes: 10,
+        liked: false
     },
-
     {
         id: 2,
         name: "Priya",
-        username: "@priya",
-        bio: "UI/UX Designer 🎨",
-        followers: 250,
-        following: 150,
-        posts: [
-            "Design is not just about looks.",
-            "Working on a new UI design!",
-            "Learning Figma today."
-        ]
+        role: "Web Developer",
+        avatar: "P",
+        avatarClass: "pink",
+        text: "AI is changing the world!",
+        time: "10 minutes ago",
+        likes: 1000,
+        liked: false
     },
-
     {
         id: 3,
-        name: "Rahul",
-        username: "@rahul",
-        bio: "Full Stack Developer 💻",
-        followers: 320,
-        following: 200,
-        posts: [
-            "Node.js is interesting!",
-            "Started learning React.",
-            "Building a full stack project."
-        ]
+        name: "Arun",
+        role: "Java Developer",
+        avatar: "A",
+        avatarClass: "green",
+        text: "Coding is fun!",
+        time: "30 minutes ago",
+        likes: 60,
+        liked: false
     }
 ];
 
+let posts = JSON.parse(
+    localStorage.getItem("miniTwitterPosts")
+);
 
-// Display users on Home Page
+if (!posts) {
+    posts = defaultPosts;
+}
 
-function displayUsers() {
+function displayPosts() {
+    const container =
+        document.getElementById("postsContainer");
 
-    const userList = document.getElementById("userList");
+    container.innerHTML = "";
 
-    userList.innerHTML = "";
+    posts.forEach(function(post) {
 
-    users.forEach(user => {
+        const postElement =
+            document.createElement("div");
 
-        const firstLetter = user.name.charAt(0);
+        postElement.className = "post";
 
-        userList.innerHTML += `
-
-            <div class="user-card">
-
-                <div class="profile-img">
-                    ${firstLetter}
+        postElement.innerHTML = `
+            <div class="post-header">
+                <div class="avatar ${post.avatarClass}">
+                    ${post.avatar}
                 </div>
 
-                <div class="user-info">
-
-                    <h3>${user.name}</h3>
-
-                    <p>${user.username}</p>
-
-                    <div class="stats">
-                        ${user.followers} Followers |
-                        ${user.following} Following |
-                        ${user.posts.length} Posts
-                    </div>
-
+                <div class="post-user">
+                    <h3>${post.name}</h3>
+                    <p>${post.role}</p>
                 </div>
-
-                <button 
-                    class="viewBtn"
-                    onclick="showProfile(${user.id})">
-                    View Profile
-                </button>
-
             </div>
 
+            <div class="post-content">
+                ${escapeHTML(post.text)}
+            </div>
+
+            <div class="post-footer">
+                <span class="post-time">
+                    ${post.time}
+                </span>
+
+                <button
+                    class="like-btn ${post.liked ? "liked" : ""}"
+                    onclick="likePost(${post.id})"
+                >
+                    <i class="fa-regular fa-thumbs-up"></i>
+                    Like (${post.likes})
+                </button>
+            </div>
         `;
+
+        container.appendChild(postElement);
     });
 }
 
+function createPost() {
+    const textarea =
+        document.getElementById("postText");
 
-// Show selected user's profile
+    const text =
+        textarea.value.trim();
 
-function showProfile(id) {
+    if (text === "") {
+        showNotification(
+            "Please write something before posting."
+        );
+        return;
+    }
 
-    const user = users.find(u => u.id === id);
+    const newPost = {
+        id: Date.now(),
+        name: "Monika",
+        role: "IT student",
+        avatar: "M",
+        avatarClass: "purple",
+        text: text,
+        time: "Just now",
+        likes: 0,
+        liked: false
+    };
 
-    document.getElementById("homePage").style.display = "none";
-    document.getElementById("profilePage").style.display = "block";
+    posts.unshift(newPost);
 
-    const profileDetails =
-        document.getElementById("profileDetails");
+    savePosts();
 
-    profileDetails.innerHTML = `
+    textarea.value = "";
 
-        <div class="profile-box">
+    displayPosts();
 
-            <div class="big-profile-img">
-                ${user.name.charAt(0)}
-            </div>
-
-            <h2>${user.name}</h2>
-
-            <p>${user.username}</p>
-
-            <p class="bio">
-                ${user.bio}
-            </p>
-
-            <div class="profile-stats">
-
-                <div>
-                    <strong>${user.followers}</strong>
-                    <br>
-                    Followers
-                </div>
-
-                <div>
-                    <strong>${user.following}</strong>
-                    <br>
-                    Following
-                </div>
-
-                <div>
-                    <strong>${user.posts.length}</strong>
-                    <br>
-                    Posts
-                </div>
-
-            </div>
-
-            <button 
-                class="followBtn"
-                onclick="followUser(this)">
-                Follow
-            </button>
-
-        </div>
-
-    `;
-
-
-    // Display posts
-
-    const postList =
-        document.getElementById("postList");
-
-    postList.innerHTML = "";
-
-    user.posts.forEach((post, index) => {
-
-        postList.innerHTML += `
-
-            <div class="post">
-
-                <h3>${user.name}</h3>
-
-                <p>${post}</p>
-
-                <button 
-                    class="likeBtn"
-                    onclick="likePost(this)">
-                    ♡ Like
-                </button>
-
-            </div>
-
-        `;
-    });
+    showNotification(
+        "Post published successfully! 🎉"
+    );
 }
 
+function likePost(id) {
+    const post =
+        posts.find(function(item) {
+            return item.id === id;
+        });
 
-// Follow button
+    if (!post) {
+        return;
+    }
+
+    if (post.liked) {
+        post.likes--;
+        post.liked = false;
+    } else {
+        post.likes++;
+        post.liked = true;
+    }
+
+    savePosts();
+
+    displayPosts();
+}
 
 function followUser(button) {
-
-    if (button.innerText === "Follow") {
-
-        button.innerText = "Following";
-        button.style.background = "#1d9bf0";
-
-    } else {
+    if (
+        button.classList.contains("following")
+    ) {
+        button.classList.remove("following");
 
         button.innerText = "Follow";
-        button.style.background = "#222";
 
-    }
-}
-
-
-// Like button
-
-function likePost(button) {
-
-    if (button.innerText === "♡ Like") {
-
-        button.innerText = "♥ Liked";
-
+        showNotification(
+            "You unfollowed this user."
+        );
     } else {
+        button.classList.add("following");
 
-        button.innerText = "♡ Like";
+        button.innerText = "Following";
 
+        showNotification(
+            "You are now following this user! 👍"
+        );
     }
 }
 
-
-// Go back to Home
-
-function goHome() {
-
-    document.getElementById("profilePage").style.display = "none";
-
-    document.getElementById("homePage").style.display = "block";
+function savePosts() {
+    localStorage.setItem(
+        "miniTwitterPosts",
+        JSON.stringify(posts)
+    );
 }
 
+function showHome() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
 
-// Start website
+function showProfile() {
+    const profile =
+        document.querySelector(".profile-card");
 
-displayUsers();
+    profile.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+    });
+}
+
+function showUser() {
+    showProfile();
+}
+
+function logout() {
+    const confirmLogout =
+        confirm(
+            "Are you sure you want to logout?"
+        );
+
+    if (confirmLogout) {
+        showNotification(
+            "You have been logged out."
+        );
+    }
+}
+
+function showNotification(message) {
+    const old =
+        document.querySelector(".notification");
+
+    if (old) {
+        old.remove();
+    }
+
+    const notification =
+        document.createElement("div");
+
+    notification.className =
+        "notification";
+
+    notification.innerHTML = `
+        <i class="fa-solid fa-circle-check"></i>
+        ${message}
+    `;
+
+    document.body.appendChild(
+        notification
+    );
+
+    setTimeout(function() {
+        notification.remove();
+    }, 3000);
+}
+
+function escapeHTML(text) {
+    const div =
+        document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+}
+
+displayPosts();
