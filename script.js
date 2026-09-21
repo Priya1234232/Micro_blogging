@@ -12,7 +12,7 @@ let defaultPosts = [
     },
     {
         id: 2,
-        name: "Priya",
+        name: "riya",
         role: "Web Developer",
         avatar: "P",
         avatarClass: "pink",
@@ -106,7 +106,7 @@ function createPost() {
 
     const newPost = {
         id: Date.now(),
-        name: "Monika",
+        name: "priya",
         role: "IT student",
         avatar: "M",
         avatarClass: "purple",
